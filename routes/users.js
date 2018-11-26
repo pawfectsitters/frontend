@@ -16,6 +16,13 @@ router.get('/newroute', (req, res)=>{
     res.send("Welcome as well.....");
 });
 
+
+router.get('/thebest', (req, res)=>{
+    res.render('index', {pagename: "HOMEYS", username: "Mikey"}); //this is index.ejs, and variable pagename sent from backend
+});
+
+
+
 router.get('/user/:name', (req, res)=>{
     let name = req.params.name;
     res.send("Welcome back " + name);
