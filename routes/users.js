@@ -9,7 +9,7 @@ const router = express.Router();
 
 
 router.get('/', (req, res)=>{
-    res.send("Welcome to Homepage");
+    res.send("Welcome to Damn Homepage");
 });
 
 router.get('/user/:name', (req, res)=>{
