@@ -13,7 +13,7 @@ router.get('/', (req, res)=>{
 });
 
 router.get('/newroute', (req, res)=>{
-    res.send("Welcome as well...");
+    res.send("Welcome as well.....");
 });
 
 router.get('/user/:name', (req, res)=>{
