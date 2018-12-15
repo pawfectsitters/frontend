@@ -4,8 +4,8 @@ const jwt = require('jsonwebtoken');
 const passport = require('passport');
 const secret = require('../config/keys').secret
 const User = require('../models/User');
+const Petsitter = require('../models/Petsitter');
 const router = express.Router();
-
 
 router.get('/', (req, res)=>{
     res.send("Pawfect Sitters Backend");
@@ -48,6 +48,45 @@ router.post('/register-user', (req, res)=>{
         }
     })
 });
+
+router.post('/register-petsitter', (req, res)=>{
+
+    // Check database for new email address
+    User.findOne({ email: req.body.email})
+    .then(user=>{
+        // If email is taken, inform the user
+        if(user) {
+            res.send({
+                message: "User already exists"
+            });
+        } 
+        // Otherwise save the new user's information
+        else {
+           const newPetsitter = new Petsitter({
+               name: req.body.name,
+               email: req.body.email,
+               password: req.body.password,
+               location: req.body.location,
+               experience: req.body.experience
+           });
+
+           // Have bcrypt generate a salt; that is, extra data to add to hash for complexity
+           bcrypt.genSalt(10, (err, salt)=>{
+                // Add the generated salt to the hash
+                bcrypt.hash(newPetsitter.password, salt, (err, hash)=>{
+                    // Change the users password to the hash
+                    newPetsitter.password = hash;
+                    // Save the users info with hashed password
+                    newPetsitter
+                    .save()
+                    .then(user=>res.send(user))
+                    .catch(err=>console.log(err));
+                });
+           })
+        }
+    })
+});
+
 
 router.post('/login', (req, res)=>{
     const email = req.body.email;
@@ -97,7 +136,7 @@ router.post('/login', (req, res)=>{
 
 // The private route
 router.get(
-    '/dashboard', 
+    '/Mypets', 
     passport.authenticate('jwt', {session: false}), 
     (req, res)=>{
     res.send({
