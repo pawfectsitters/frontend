@@ -1,4 +1,4 @@
 module.exports = {
-    mongoURI: "mongodb://michele:abc123@ds125302.mlab.com:25302/exercise",
-    secret: "abc123456"
+    mongoURI: "mongodb://michele:pawfectmichele2018@ds149732.mlab.com:49732/pawfectdatabase",
+    secret: "michele123"
 }; //Keys in production
