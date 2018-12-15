@@ -66,8 +66,12 @@ router.post('/register-petsitter', (req, res)=>{
                name: req.body.name,
                email: req.body.email,
                password: req.body.password,
+               telephone: req.body.telephone,
+               experience: req.body.experience,
+               bio: req.body.bio,
                location: req.body.location,
-               experience: req.body.experience
+               fee: req.body.fee,
+               pettype: req.body.pettype
            });
 
            // Have bcrypt generate a salt; that is, extra data to add to hash for complexity
