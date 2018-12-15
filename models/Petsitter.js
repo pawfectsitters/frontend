@@ -5,7 +5,7 @@ const PetsitterSchema = new Schema({
     email: {type: String, required: true},
     password: {type: String, required: true},
     telephone: {type: Number, required: true},
-    experience: [{type: String}],
+    experience: {type: String, required: false},
     bio: {type: String, required: false},
     location: {type: String, required: false},
     fee: {type: Number, required: true},
