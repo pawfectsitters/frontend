@@ -2,44 +2,14 @@ const express = require('express');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const passport = require('passport');
-const passportjwt = require('passport-jwt');
 const secret = require('../config/keys').secret
 const User = require('../models/User');
 const router = express.Router();
 
 
 router.get('/', (req, res)=>{
-    res.send("Welcome to Damn Homepage");
+    res.send("Pawfect Sitters Backend");
 });
-
-router.get('/newroute', (req, res)=>{
-    res.send("Welcome as well.....");
-});
-
-
-router.get('/thebest', (req, res)=>{
-    res.render('index', {pagename: "HOMEYS", username: "Mikey"}); //this is index.ejs, and variable pagename sent from backend
-});
-
-
-
-router.get('/user/:name', (req, res)=>{
-    let name = req.params.name;
-    res.send("Welcome back " + name);
-});
-
-router.post('/register-survey', (req, res)=>{
-    const newUser = new User(req.body);
-
-    newUser.save()
-    .then((user)=>{ // After save
-        res.json(user); // Respond to the client
-    })
-    .catch((err)=>{ // If save does not work
-        console.log('error is', err); // Tell is what happened
-    });
-});
-
 
 router.post('/register-user', (req, res)=>{
 
@@ -57,7 +27,9 @@ router.post('/register-user', (req, res)=>{
            const newUser = new User({
                name: req.body.name,
                email: req.body.email,
-               password: req.body.password
+               password: req.body.password,
+               location: req.body.location,
+               pettype: req.body.pettype
            });
 
            // Have bcrypt generate a salt; that is, extra data to add to hash for complexity
@@ -129,18 +101,14 @@ router.get(
     passport.authenticate('jwt', {session: false}), 
     (req, res)=>{
     res.send({
-        myFriends: [
+        myPets: [
             {
-                name: "Jimmy",
-                location: "Canada"
+                name: "Victor",
+                pettype: "Cat"
             },
             {
-                name: "Amy",
-                location: "Dubai"
-            },
-            {
-                name: "Sanjay",
-                location: "UK"
+                name: "Andrew",
+                pettype: "Cat"
             }
         ]
     })
