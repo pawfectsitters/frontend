@@ -52,7 +52,7 @@ router.post('/register-user', (req, res)=>{
 router.post('/register-petsitter', (req, res)=>{
 
     // Check database for new email address
-    User.findOne({ email: req.body.email})
+    Petsitter.findOne({ email: req.body.email})
     .then(user=>{
         // If email is taken, inform the user
         if(user) {
